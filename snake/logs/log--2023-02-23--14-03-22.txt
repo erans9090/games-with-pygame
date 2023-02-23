@@ -1,0 +1,2 @@
+UI: init
+UI: main_menu

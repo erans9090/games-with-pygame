@@ -1,0 +1,9 @@
+UI: init
+UI: main_menu
+UI: properties_menu
+UI: main_menu
+UI: properties_menu
+UI: properties_menu
+UI: properties_menu
+UI: properties_menu
+UI: main_menu
