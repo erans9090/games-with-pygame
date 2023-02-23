@@ -1,0 +1,10 @@
+UI: init
+UI: main_menu
+UI: properties_menu
+UI: background color changed to RED
+UI: properties_menu
+UI: properties menu closed
+UI: properties menu closed
+UI: main_menu
+UI: GAME STARTED: hard
+UI: GAME STARTED: hard

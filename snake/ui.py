@@ -42,14 +42,20 @@ class UI:
                             self.logger.log("UI: GAME STARTED: hard")
                             return
                         elif properties.window_height//2 - 20 < pygame.mouse.get_pos()[1] < properties.window_height//2 + 60:
+                            self.logger.log("UI: GAME STARTED: medium")
                             properties.medium()
                             return
                         elif properties.window_height//2 + 60 < pygame.mouse.get_pos()[1] < properties.window_height//2 + 140:
+                            self.logger.log("UI: GAME STARTED: easy")
                             properties.easy()
                             return
                         elif properties.window_height//2 + 140 < pygame.mouse.get_pos()[1] < properties.window_height//2 + 220:
                             self.properties_menu()
-                            self.main_menu()
+
+                self.draw_main_menu()
+
+
+
     
     def draw_main_menu(self):
 
@@ -90,11 +96,8 @@ class UI:
         self.draw_properties()
         
         # properties main loop
-        out = False
         while True:
 
-            if out:
-                break
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -109,21 +112,25 @@ class UI:
                             properties.snake_color = properties.change_color("snake")
                             self.logger.log("UI: snake color changed to " + str(properties.snake_color))
                             self.properties_menu()
+                            return 
                         elif properties.window_height//2 - 60 < pygame.mouse.get_pos()[1] < properties.window_height//2 - 20:
                             properties.food_color = properties.change_color("food")
                             self.logger.log("UI: food color changed to " + str(properties.food_color))
                             self.properties_menu()
+                            return 
                         elif properties.window_height//2 - 20 < pygame.mouse.get_pos()[1] < properties.window_height//2 + 20:
                             properties.background_color = properties.change_color("background")
                             self.logger.log("UI: background color changed to " + str(properties.background_color))
                             self.properties_menu()
+                            return 
                         # elif properties.window_height//2 + 20 < pygame.mouse.get_pos()[1] < properties.window_height//2 + 60:
                         #     out = True
                         #     break
                         elif properties.window_height//2 + 100 < pygame.mouse.get_pos()[1] < properties.window_height//2 + 160:
-                            out = True
+                            # out = True
                             self.logger.log("UI: properties menu closed")
-                            break
+                            return
+                            # break
 
 
 
@@ -131,7 +138,7 @@ class UI:
 
     def draw_properties(self):
 
-        self.screen.fill("black")
+        self.screen.fill(properties.background_color)
         pygame.draw.rect(self.screen,"grey", (properties.window_width//2 - 100, properties.window_height//2 - 100, properties.window_width//5, properties.window_height//16))
         pygame.draw.rect(self.screen,"grey", (properties.window_width//2 - 100, properties.window_height//2 - 60, properties.window_width//5, properties.window_height//16))
         pygame.draw.rect(self.screen,"grey", (properties.window_width//2 - 100, properties.window_height//2 - 20, properties.window_width//5, properties.window_height//16))
@@ -207,6 +214,7 @@ class UI:
     def is_food_eaten(self):
         if abs(self.snake.head[0] - self.food[0]) <= properties.link_size and abs(self.snake.head[1] - self.food[1]) <= properties.link_size:
             self.snake.score += 1
+            self.logger.log(f"Score: {self.snake.score}")
             properties.speed += properties.speed_increase
             self.snake.body.append([self.snake.head[0],self.snake.head[1]])
             self.food = [random.randint(0,properties.window_width) - random.randint(0,properties.window_width)%10,random.randint(0,properties.window_height) - random.randint(0,properties.window_height)%10]
